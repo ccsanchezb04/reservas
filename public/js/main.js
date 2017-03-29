@@ -54,12 +54,17 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#btnAdicionar").click(function(event) {		
+	$("#btnAdicionar").click(function(event) {
+		var documento = $('#cliente_doc').val();
+		alert(documento);		
 		$.ajax({
 			url: add_reserva,
 			type: 'POST',
 			dataType: 'text',
-			data: {info: $('#form_add_reserva form').serialize()}
+			data: {
+					info: $('#form_add_reserva form').serialize(),
+					doc: documento
+				   }
 		})
 		.done(function(data) {
 			if (data == true) {
@@ -68,8 +73,9 @@ $(document).ready(function() {
 				alertaFail("Error!!! El registro no se agrego");
 			}
 		})
-		.fail(function() {
+		.fail(function(data) {
 			alertaFail("Error!!!");
+			$("#error").html(data);
 		});
 	});
 

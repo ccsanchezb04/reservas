@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// Varables campos tabla clientes
+/*// Varables campos tabla clientes
 var $clie_id = "";
 var $clie_nume_docu = "";
 var $clie_nombre = "";
@@ -12,7 +12,7 @@ var $rese_id = "";
 var $rese_clie_id = "";
 var $rese_fecha = "";
 var $rese_valo_tota = "";
-var $rese_observaciones = "";
+var $rese_observaciones = "";*/
 
 class Principal extends CI_Model {
 
@@ -29,24 +29,24 @@ class Principal extends CI_Model {
 
 	public function cliente($cliente_nume_doc)
 	{
-		$this->cliente_nume_doc = $cliente_nume_doc;
+		// echo $cliente_nume_doc;
 
-		$this->db->select('COUNT(*) as cliente');
+		$this->db->select('clie_id');
 		$this->db->from('clientes');
-		$this->db->where('cliente_nume_doc',$this->cliente_nume_doc);
+		$this->db->where('clie_nume_docu',$cliente_nume_doc);
 
 		$query = $this->db->get();
-		return $query->result();
-		/*foreach ($query->result() as $key) {
-			$total = $key->cliente;
+		// return $query->result();
+		foreach ($query->result() as $key) {
+			$docume = $key->clie_id;
 		}
-		if ($total > 0) {
-			$bandera = true;
-		}
-		else {
+		if ($docume < 0) {
 			$bandera = false;
 		}
-		return $bandera;*/
+		else {
+			$bandera = $docume;
+		}
+		return $bandera;
 	}
 
 	public function addReservaCliente()
@@ -82,11 +82,20 @@ class Principal extends CI_Model {
 
 	public function addReserva($clie_id)
 	{
-		$reserva = array('rese_clie_id' 	  	  => $clie_id,
-							 'rese_fecha'    	  => $this->input->post('rese_fecha'),
-							 'rese_valo_tota'     => $this->input->post('rese_valo_tota'),
-							 'rese_observaciones' => $this->input->post('rese_observaciones'));
-	}
+		$reserva1 = array('rese_clie_id' 	   => $clie_id,
+						  'rese_fecha'    	   => $this->input->post('rese_fecha'),
+						  'rese_valo_tota'     => $this->input->post('rese_valo_tota'),
+						  'rese_observaciones' => $this->input->post('rese_observaciones'));
+
+		if (!$this->db->insert('reserva', $reserva1)) 
+        {        	
+            return false;
+        }
+        else
+        {
+        	return true;	
+        }
+    }
 }
 
 /* End of file principal.php */

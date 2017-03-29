@@ -51,6 +51,9 @@
 								
 							</div>  		
 						</div>
+						<div id="error">
+							
+						</div>
 					</div>
 				</div>
 			</div>

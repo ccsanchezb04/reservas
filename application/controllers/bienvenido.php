@@ -24,9 +24,17 @@ class Bienvenido extends CI_Controller {
 	public function addReserva()
 	{
 		if ($_POST) {
-			$dato = $_POST['info'];
-		}
-		$this->principal->addReserva();
+			// $dato = $_POST['info'];
+			// $cliente_nume_doc = $_POST['doc'];	
+			// $cliente = $this->principal->cliente($cliente_nume_doc);		
+			$cliente = $this->principal->cliente($_POST['doc']);	
+			if ($cliente == false) {
+			$oper = $this->principal->addReservaCliente();
+			}else {
+				$oper = $this->principal->addReserva($cliente);
+			}
+			return $oper;	
+		}	
 	}
 
 	public function lstReserva()
