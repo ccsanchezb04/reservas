@@ -1,21 +1,29 @@
 var base_url = "http://localhost/reservas/";
+var add_form_reserva = base_url+"bienvenido/mostrarAddReserva";
 var add_reserva = base_url+"bienvenido/addReserva";
 var lst_reserva = base_url+"bienvenido/lstReserva";
 $(document).ready(function() {
 	$("#btnInicio").attr('disabled','disabled');
+
 	$("body").on('blur', '#login_form form input', function(event) {
 		event.preventDefault();
 		validacion();
 	});	
+
 	$("#add_reserva").click(function(event) {
 		$.ajax({
-			url: add_reserva,
+			url: add_form_reserva,
 			type: 'POST',
 			dataType: 'html'
 		})
 		.done(function(data) {
 			$("#titulo-pagina").text('Adicionar Reserva');
 			$('#bienvenido').children('div.contenido').fadeOut('slow').css('display', 'none');
+			var contenido = $('#contenedor').children('div.contenido').attr('id');
+			if (contenido == "tbl_info_reservas") {	
+				$('#contenedor').children('div').fadeOut('slow').css('display', 'none');
+				$('#botoneria2').fadeOut('slow').css('display', 'none');
+			}
 			$('#contenedor').html(data).fadeIn('slow');
 			$('#botoneria').css('display', 'block').fadeIn('slow');
 		})
@@ -23,6 +31,7 @@ $(document).ready(function() {
 			$('#contenedor').html(data).fadeIn('slow');
 		});
 	});	
+
 	$("#lst_reserva").click(function(event) {
 		$.ajax({
 			url: lst_reserva,
@@ -32,21 +41,42 @@ $(document).ready(function() {
 		.done(function(data) {
 			$("#titulo-pagina").text('Consultar Reservas');
 			$('#bienvenido').children('div.contenido').fadeOut('slow').css('display', 'none');
-			// $('#contenedor').children('div')fadeOut('slow').css('display', 'none');
-			$('#contenedor').fadeIn('slow').html(data);
-			// $('#botoneria').css('display', 'block').fadeIn('slow');
+			var contenido = $('#contenedor').children('div.contenido').attr('id');
+			if (contenido == "form_add_reserva") {	
+				$('#contenedor').children('div').fadeOut('slow').css('display', 'none');
+				$('#botoneria').fadeOut('slow').css('display', 'none');
+			}
+			$('#contenedor').html(data).fadeIn('slow');
+			$('#botoneria2').css('display', 'block').fadeIn('slow');
 		})
 		.fail(function(data) {
-			$('#contenedor').fadeIn('slow').html(data);
-		});	
+			$('#contenedor').html(data).fadeIn('slow');
+		});
 	});
-	$("#btnAdicionar").click(function(event) {
 
+	$("#btnAdicionar").click(function(event) {		
+		$.ajax({
+			url: add_reserva,
+			type: 'POST',
+			dataType: 'text',
+			data: {info: $('#form_add_reserva form').serialize()}
+		})
+		.done(function(data) {
+			if (data == true) {
+				alertaOk("El registro se agrego correctamente");
+			}else {
+				alertaFail("Error!!! El registro no se agrego");
+			}
+		})
+		.fail(function() {
+			alertaFail("Error!!!");
+		});
 	});
-	$("#btnVolverInicio").click(function(event) {
+
+	$(".btnVolverInicio").click(function(event) {
 		$("#titulo-pagina").text('Inicio - Bienvenido');
 		$('#contenedor').children('div.contenido').css('display', 'none').fadeOut('slow');
-		$('#botoneria').fadeOut('slow');
+		$('#botoneria,#botoneria2').fadeOut('slow');
 		$('#vista_principal').css('display', 'blok').fadeIn('slow');
 	});
 });
@@ -68,7 +98,7 @@ function validacion() {
 	}
 }
 /**
- * [alertaOk description]
+ * [Función que permite mostar una alerta positiva a un proceso que se realizo satisfacroriamen]
  */
 function alertaOk(texto) { 
 	$("#alertaOk").html("<h3>"+texto+"</h3>");

@@ -16,9 +16,17 @@ class Bienvenido extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
-	public function addReserva()
+	public function mostrarAddReserva()
 	{
 		$this->load->view('reservas/add_reserva');
+	}
+
+	public function addReserva()
+	{
+		if ($_POST) {
+			$dato = $_POST['info'];
+		}
+		$this->principal->addReserva();
 	}
 
 	public function lstReserva()

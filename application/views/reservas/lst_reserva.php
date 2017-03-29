@@ -8,14 +8,14 @@
 			<th>Valor Total</th>
 			<th>Observaciones</th>
 		</tr>
-		<?php foreach ($resreva as $key): ?>
+		<?php foreach ($reserva as $key): ?>
 		<tr>
 			<td><?php echo $key->rese_fecha; ?></td>
 			<td><?php echo $key->clie_nume_docu; ?></td>
 			<td><?php echo $key->clie_nombre; ?></td>
-			<td>$<?php echo $key->rese_valo_tota; ?></td>
+			<td>$<?php echo number_format( $key->rese_valo_tota,'.',','); ?></td>
 			<td><?php echo $key->rese_observaciones; ?></td>
 		</tr>
-		<?php endforeach ?>
+		<?php endforeach; ?>
 	</table>	
 </div>
