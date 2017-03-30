@@ -1,6 +1,6 @@
 var base_url = "http://localhost/reservas/";
 var add_form_reserva = base_url+"bienvenido/mostrarAddReserva";
-var add_reserva = base_url+"bienvenido/addReserva";
+var conf_cliente = base_url+"bienvenido/buscarCliente";
 var lst_reserva = base_url+"bienvenido/lstReserva";
 $(document).ready(function() {
 	$("#btnInicio").attr('disabled','disabled');
@@ -54,29 +54,29 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#btnAdicionar").click(function(event) {
-		var documento = $('#cliente_doc').val();
-		alert(documento);		
+	$("body").on('blur', '#cliente_doc', function(event) {
+		event.preventDefault();
+		var documento = $("#cliente_doc").val();
 		$.ajax({
-			url: add_reserva,
+			url: conf_cliente,
 			type: 'POST',
-			dataType: 'text',
-			data: {
-					info: $('#form_add_reserva form').serialize(),
-					doc: documento
-				   }
+			dataType: 'json',
+			data: {doc: documento},
 		})
 		.done(function(data) {
-			if (data == true) {
-				alertaOk("El registro se agrego correctamente");
-			}else {
-				alertaFail("Error!!! El registro no se agrego");
-			}
+			console.log("success");
+			JSON.parse(data, function (k, v) {
+			    console.log(k);            // log the current property name, the last is "".
+			    $("#cliente_nombre").val(v);                  // return the unchanged property value.
+			});
 		})
 		.fail(function(data) {
-			alertaFail("Error!!!");
-			$("#error").html(data);
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
 		});
+		
 	});
 
 	$(".btnVolverInicio").click(function(event) {

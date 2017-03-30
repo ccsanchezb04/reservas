@@ -29,29 +29,17 @@ class Principal extends CI_Model {
 
 	public function cliente($cliente_nume_doc)
 	{
-		// echo $cliente_nume_doc;
-
-		$this->db->select('clie_id');
+		$this->db->select('clie_id,clie_nombre,clie_email');
 		$this->db->from('clientes');
 		$this->db->where('clie_nume_docu',$cliente_nume_doc);
 
 		$query = $this->db->get();
-		// return $query->result();
-		foreach ($query->result() as $key) {
-			$docume = $key->clie_id;
-		}
-		if ($docume < 0) {
-			$bandera = false;
-		}
-		else {
-			$bandera = $docume;
-		}
-		return $bandera;
+		return json_encode($query->result());		
 	}
 
 	public function addReservaCliente()
 	{
-		$cliente = array('clie_nume_docu' => $this->input->post('clie_nume_docu'),
+		$cliente = array('clie_nume_docu' => $this->input->post('clie_nume_doc'),
 						 'clie_nombre'	  => $this->input->post('clie_nombre'),
 						 'clie_email'  	  => $this->input->post('clie_email'));
        

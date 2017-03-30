@@ -1,7 +1,7 @@
 <!-- clie_nume_docu, clie_nombre, clie_email -->
 <!-- rese_fecha, rese_valo_tota, rese_observaciones -->
 <div class="contenido" id="form_add_reserva">
-	<form class="form-horizontal" method="post" role="form">
+	<form class="form-horizontal" method="post" role="form" action="<?php echo base_url(); ?>bienvenido/addReserva">
 		<div class="form-group">
 		  	<div class="col-sm-12">
 		  		<label for="cliente_doc" class="control-label">Documento del Cliente</label>
@@ -36,6 +36,8 @@
 		  	<div class="col-sm-12">
 		  		<label for="observaciones" class="control-label">Observaciones</label>
 		    	<textarea class="form-control" id="observaciones" name="rese_observaciones" placeholder="Observaciones"></textarea>
+		    	<input type="hidden" name="existe" id="existe" value="false">
+		    	<input type="hidden" name="clie_id" id="clie_id">
 		  	</div>
 		</div>			
 	</form>
