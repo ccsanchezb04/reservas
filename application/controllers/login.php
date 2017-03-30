@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('loginMod');
+		$this->removeCache();
 	}
 
 	public function index()
@@ -21,7 +22,7 @@ class Login extends CI_Controller {
 			}
 			else{
 				echo "<script>";
-				echo "alertaFail('¡Su estado actual es: Inactivo, por lo tanto no puede iniciar sesión!');";
+				echo "alert('¡Su estado actual es: Inactivo, por lo tanto no puede iniciar sesión!');";
 				echo "window.location.replace('".base_url()."login/close')";
 				echo "</script>";
 			}

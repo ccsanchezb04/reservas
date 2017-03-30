@@ -2,7 +2,7 @@ body {
 	background: #555;
 }
 #login_form { margin-top: 20px; }
-#alertaFail, #alertaOk { display: none; }
+ #alertas-login #alertaFail, #alertas-login #alertaOk { display: none; } 
 .submenu{
 	display: none;
 	text-align: right;

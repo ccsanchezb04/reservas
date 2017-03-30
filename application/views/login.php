@@ -26,7 +26,7 @@
 				    	</div>
 				  	</div>				  	
 				</form>
-				<div id="alertas">
+				<div id="alertas-login">
 					<div class="alert alert-danger" id="alertaFail" role="alert">
 						
 					</div>  		

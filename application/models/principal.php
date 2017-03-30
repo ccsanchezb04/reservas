@@ -1,19 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*// Varables campos tabla clientes
-var $clie_id = "";
-var $clie_nume_docu = "";
-var $clie_nombre = "";
-var $clie_email = "";
-
-// Varables campos tabla reserva
-var $rese_id = "";
-var $rese_clie_id = "";
-var $rese_fecha = "";
-var $rese_valo_tota = "";
-var $rese_observaciones = "";*/
-
 class Principal extends CI_Model {
 
 	public function reservas()
@@ -34,12 +21,13 @@ class Principal extends CI_Model {
 		$this->db->where('clie_nume_docu',$cliente_nume_doc);
 
 		$query = $this->db->get();
-		return json_encode($query->result());		
+		echo json_encode($query->result());
+		// return json_encode($query->result());			
 	}
 
 	public function addReservaCliente()
 	{
-		$cliente = array('clie_nume_docu' => $this->input->post('clie_nume_doc'),
+		$cliente = array('clie_nume_docu' => $this->input->post('clie_nume_docu'),
 						 'clie_nombre'	  => $this->input->post('clie_nombre'),
 						 'clie_email'  	  => $this->input->post('clie_email'));
        
@@ -51,7 +39,7 @@ class Principal extends CI_Model {
         {
         	$this->db->select('clie_id');
 			$this->db->from('clientes');		
-			$this->db->where('clie_nume_doc', $this->input->post('clie_nume_doc'));
+			$this->db->where('clie_nume_docu', $this->input->post('clie_nume_docu'));
 			$query = $this->db->get();
 
 			foreach ($query->result() as $key) {

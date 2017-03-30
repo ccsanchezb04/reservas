@@ -31,8 +31,8 @@ class LoginMod extends CI_Model {
 		else
 		{
 			echo "<script>";
-			echo "window.location.replace(".base_url().");";
-			echo "alertaFail('¡Usuario/Contraseña Incorrectos!');";
+			echo "alert('¡Usuario/Contraseña Incorrectos!');";
+			// echo "window.location.replace(".base_url().");";
 			echo "</script>";
 		}
 	}

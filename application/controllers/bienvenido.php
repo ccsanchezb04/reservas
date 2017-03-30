@@ -6,7 +6,14 @@ class Bienvenido extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('principal');		
+		$this->load->model('principal');
+		$this->removeCache();
+		if ($this->session->userdata('userRole') == '') {
+			echo "<script type='text/javascript'>";
+            echo "alert('Debe iniciar sesión!');";
+            echo "window.location.replace('".base_url()."');";
+            echo "</script>";
+		}		
 	}
 
 	public function index()
@@ -24,14 +31,16 @@ class Bienvenido extends CI_Controller {
 	public function addReserva()
 	{
 		if ($_POST) {
-			$cliente = $this->input->post('existe');		
-			$docCliente = $this->input->post('clie_id');		
-			if ($cliente == false) {
-				$oper = $this->principal->addReservaCliente();
+			$cliente = $this->input->post('existe');				
+			if ($cliente == "true") {
+				$docCliente = $this->input->post('clie_id');
+				$data['oper'] = $this->principal->addReserva($docCliente);
 			}else {
-				$oper = $this->principal->addReserva($docCliente);
+				$data['oper'] = $this->principal->addReservaCliente();
 			}
-			return $oper;	
+			$this->load->view('layouts/header');
+			$this->load->view('layouts/alerts', $data);
+			$this->load->view('layouts/footer');
 		}	
 	}
 

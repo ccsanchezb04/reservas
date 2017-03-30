@@ -30,27 +30,19 @@
 						</div>						
 					</div>					
 					<div class="col-md-4">
-						<div class="row contenido" id="botoneria">
+						<!-- <div class="row contenido" id="botoneria">
 						  	<div class="col-sm-6">
 						    	<button type="submit" class="btn btn-primary btn-block" id="btnAdicionar">Adicionar</button>
 						  	</div>
 						  	<div class="col-sm-6">
 						    	<button type="button" class="btn btn-danger btn-block btnVolverInicio">Volver</button>
 						  	</div>
-						</div>
+						</div> -->
 						<div class="row contenido" id="botoneria2">
 							<div class="col-sm-12">
 						    	<button type="button" class="btn btn-danger btn-block btnVolverInicio">Volver</button>
 						  	</div>
-						</div>
-						<div id="alertas">
-							<div class="alert alert-danger" id="alertaFail" role="alert">
-								
-							</div>  		
-							<div class="alert alert-success" id="alertaOk" role="alert">
-								
-							</div>  		
-						</div>
+						</div>						
 						<div id="error">
 							
 						</div>

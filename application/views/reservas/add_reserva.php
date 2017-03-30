@@ -37,7 +37,11 @@
 		  		<label for="observaciones" class="control-label">Observaciones</label>
 		    	<textarea class="form-control" id="observaciones" name="rese_observaciones" placeholder="Observaciones"></textarea>
 		    	<input type="hidden" name="existe" id="existe" value="false">
-		    	<input type="hidden" name="clie_id" id="clie_id">
+		    	<input type="hidden" name="clie_id" id="cliente_id">
+		  	</div>
+		</div><div class="form-group">	  	
+		  	<div class="col-sm-12">
+		    	<button type="submit" class="btn btn-primary btn-block" id="btnAdicionar">Adicionar</button>
 		  	</div>
 		</div>			
 	</form>

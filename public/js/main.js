@@ -10,6 +10,9 @@ $(document).ready(function() {
 		validacion();
 	});	
 
+	/**
+	 * [Evento que permite mostrar el formulario de inserción de registros]
+	 */
 	$("#add_reserva").click(function(event) {
 		$.ajax({
 			url: add_form_reserva,
@@ -22,16 +25,19 @@ $(document).ready(function() {
 			var contenido = $('#contenedor').children('div.contenido').attr('id');
 			if (contenido == "tbl_info_reservas") {	
 				$('#contenedor').children('div').fadeOut('slow').css('display', 'none');
-				$('#botoneria2').fadeOut('slow').css('display', 'none');
+				// $('#botoneria2').fadeOut('slow').css('display', 'none');
 			}
 			$('#contenedor').html(data).fadeIn('slow');
-			$('#botoneria').css('display', 'block').fadeIn('slow');
+			$('#botoneria2').css('display', 'block').fadeIn('slow');
 		})
 		.fail(function(data) {
 			$('#contenedor').html(data).fadeIn('slow');
 		});
 	});	
 
+	/**
+	 * [Evento que permite mostrar Latabla de información de los registros]
+	 */
 	$("#lst_reserva").click(function(event) {
 		$.ajax({
 			url: lst_reserva,
@@ -44,7 +50,7 @@ $(document).ready(function() {
 			var contenido = $('#contenedor').children('div.contenido').attr('id');
 			if (contenido == "form_add_reserva") {	
 				$('#contenedor').children('div').fadeOut('slow').css('display', 'none');
-				$('#botoneria').fadeOut('slow').css('display', 'none');
+				// $('#botoneria').fadeOut('slow').css('display', 'none');
 			}
 			$('#contenedor').html(data).fadeIn('slow');
 			$('#botoneria2').css('display', 'block').fadeIn('slow');
@@ -54,6 +60,10 @@ $(document).ready(function() {
 		});
 	});
 
+	/**
+	 * [Evento que permite validar la existencia de un cliente que este realizando una reserva]
+	 * @param  var documento [Trae el valor ingresado en el capo Documento del cliente]
+	 */
 	$("body").on('blur', '#cliente_doc', function(event) {
 		event.preventDefault();
 		var documento = $("#cliente_doc").val();
@@ -65,19 +75,22 @@ $(document).ready(function() {
 		})
 		.done(function(data) {
 			console.log("success");
-			JSON.parse(data, function (k, v) {
-			    console.log(k);            // log the current property name, the last is "".
-			    $("#cliente_nombre").val(v);                  // return the unchanged property value.
-			});
+			$("#cliente_id").val(data[0].clie_id);
+			$("#cliente_nombre").val(data[0].clie_nombre);
+			$("#cliente_email").val(data[0].clie_email);
+			$("#existe").val(true);
+			alertaOk("Cliente cargado con exito...!!");
 		})
 		.fail(function(data) {
 			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
-		});
-		
+			alertaFail("El cliente no existe en la base de datos...");
+		});		
 	});
+
+	/*$("body").on('click', '#btnAdicionar', function(event) {
+		event.preventDefault();
+		// alert('hola');
+	});*/
 
 	$(".btnVolverInicio").click(function(event) {
 		$("#titulo-pagina").text('Inicio - Bienvenido');
@@ -89,10 +102,9 @@ $(document).ready(function() {
 /**
  * [Función que valida que los campos de usuario y contraseña]
  */
-function validacion() {
-	var user, password = "";
-	user = $("#usuario").val();
-	password = $("#password").val();
+function validacion() {	
+	var user = $("#usuario").val();
+	var password = $("#password").val();
 	if ((user != "0" && password == "0")||(user == "0" && password != "0")) {
 		console.log("1");
 		alertaFail("0 No es considerado como usuario o contraseña");
